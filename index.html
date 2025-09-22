@@ -8,8 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>QR Display - Lễ Tân</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
         * {
             margin: 0;
             padding: 0;
@@ -17,67 +15,27 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: linear-gradient(145deg, #025944 0%, #014a3a 50%, #025944 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            position: relative;
-        }
-
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 30% 20%, rgba(240, 233, 174, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
-            pointer-events: none;
-        }
-
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
         }
 
         .container {
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 32px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 50px;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
             text-align: center;
-            box-shadow:
-                    0 32px 64px rgba(2, 89, 68, 0.15),
-                    0 8px 32px rgba(2, 89, 68, 0.1),
-                    inset 0 1px 0 rgba(255, 255, 255, 0.8);
-            max-width: 900px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 800px;
             width: 90%;
-            min-height: 700px;
+            min-height: 600px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            position: relative;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #025944, #f0e9ae, #025944);
-            border-radius: 32px 32px 0 0;
         }
 
         /* Logo Screen */
@@ -89,55 +47,28 @@
         }
 
         .logo {
-            width: 280px;
-            height: 280px;
-            background: linear-gradient(135deg, #025944 0%, #014a3a 100%);
+            width: 200px;
+            height: 200px;
+            background: #667eea;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #f0e9ae;
-            font-size: 64px;
-            font-weight: 700;
-            margin-bottom: 40px;
-            box-shadow:
-                    0 20px 40px rgba(2, 89, 68, 0.3),
-                    0 8px 16px rgba(2, 89, 68, 0.2),
-                    inset 0 2px 4px rgba(240, 233, 174, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .logo::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(240, 233, 174, 0.1), transparent);
-            transform: rotate(45deg);
-            animation: logoShine 3s ease-in-out infinite;
-        }
-
-        @keyframes logoShine {
-            0%, 100% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            50% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+            color: white;
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 30px;
         }
 
         .welcome-text {
-            font-size: 36px;
-            font-weight: 600;
-            color: #025944;
-            margin-bottom: 16px;
-            letter-spacing: -0.5px;
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
         }
 
         .subtitle {
-            font-size: 20px;
-            color: rgba(2, 89, 68, 0.7);
-            font-weight: 400;
-            letter-spacing: 0.2px;
+            font-size: 16px;
+            color: #666;
         }
 
         /* QR Screen */
@@ -146,290 +77,130 @@
         }
 
         .customer-info {
-            background: linear-gradient(135deg, #f0e9ae 0%, rgba(240, 233, 174, 0.8) 100%);
-            border-radius: 24px;
-            padding: 35px;
-            margin-bottom: 35px;
-            border: 1px solid rgba(2, 89, 68, 0.1);
-            box-shadow:
-                    0 8px 32px rgba(2, 89, 68, 0.1),
-                    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
         }
 
         .customer-name {
-            font-size: 32px;
-            font-weight: 700;
-            color: #025944;
-            margin-bottom: 20px;
-            letter-spacing: -0.5px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
         }
 
         .customer-details {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 25px;
-            margin-bottom: 25px;
+            gap: 15px;
+            margin-bottom: 20px;
         }
 
         .detail-item {
             text-align: left;
-            background: rgba(255, 255, 255, 0.6);
-            padding: 20px;
-            border-radius: 16px;
-            border: 1px solid rgba(2, 89, 68, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .detail-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(2, 89, 68, 0.15);
         }
 
         .detail-label {
             font-size: 14px;
-            color: rgba(2, 89, 68, 0.7);
-            margin-bottom: 8px;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            color: #666;
+            margin-bottom: 5px;
         }
 
         .detail-value {
             font-size: 18px;
             font-weight: 600;
-            color: #025944;
-            letter-spacing: -0.2px;
+            color: #333;
         }
 
         .qr-container {
-            margin: 40px 0;
-            position: relative;
+            margin: 30px 0;
         }
 
         .qr-code {
-            max-width: 320px;
+            max-width: 300px;
             height: auto;
-            border: 4px solid #025944;
-            border-radius: 20px;
-            padding: 16px;
-            background: #ffffff;
-            box-shadow:
-                    0 16px 32px rgba(2, 89, 68, 0.2),
-                    0 4px 16px rgba(2, 89, 68, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .qr-code:hover {
-            transform: scale(1.02);
-            box-shadow:
-                    0 20px 40px rgba(2, 89, 68, 0.25),
-                    0 8px 24px rgba(2, 89, 68, 0.15);
+            border: 3px solid #667eea;
+            border-radius: 15px;
+            padding: 10px;
+            background: white;
         }
 
         .timer-container {
-            background: linear-gradient(135deg, #025944 0%, #014a3a 100%);
-            color: #f0e9ae;
-            border-radius: 20px;
-            padding: 25px;
-            margin-top: 30px;
-            box-shadow:
-                    0 12px 24px rgba(2, 89, 68, 0.3),
-                    inset 0 1px 0 rgba(240, 233, 174, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .timer-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #f0e9ae, transparent);
-            animation: timerGlow 2s ease-in-out infinite;
-        }
-
-        @keyframes timerGlow {
-            0% { left: -100%; }
-            100% { left: 100%; }
+            background: #667eea;
+            color: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
         }
 
         .timer-text {
-            font-size: 18px;
-            margin-bottom: 8px;
-            font-weight: 500;
-            opacity: 0.9;
+            font-size: 16px;
+            margin-bottom: 5px;
         }
 
         .timer-value {
-            font-size: 32px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            font-size: 24px;
+            font-weight: bold;
         }
 
         .loading {
             display: none;
-            font-size: 20px;
-            color: #025944;
-            font-weight: 500;
+            font-size: 18px;
+            color: #667eea;
         }
 
         /* Animations */
         .fade-in {
-            animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: fadeIn 0.5s ease-in;
         }
 
         .fade-out {
-            animation: fadeOut 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: fadeOut 0.5s ease-out;
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(30px) scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes fadeOut {
-            from {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-            to {
-                opacity: 0;
-                transform: translateY(-30px) scale(0.95);
-            }
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(-20px); }
         }
 
         .pulse {
-            animation: pulse 3s ease-in-out infinite;
+            animation: pulse 2s infinite;
         }
 
         @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-                box-shadow: 0 20px 40px rgba(2, 89, 68, 0.3);
-            }
-            50% {
-                transform: scale(1.02);
-                box-shadow: 0 24px 48px rgba(2, 89, 68, 0.4);
-            }
-        }
-
-        /* Floating particles effect */
-        .floating-particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(240, 233, 174, 0.4);
-            border-radius: 50%;
-            animation: float 8s linear infinite;
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(100vh) translateX(0) scale(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100px) translateX(100px) scale(1);
-                opacity: 0;
-            }
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .container {
-                padding: 30px;
-                margin: 15px;
-                min-height: 600px;
-            }
-
-            .logo {
-                width: 220px;
-                height: 220px;
-                font-size: 48px;
-            }
-
-            .welcome-text {
-                font-size: 28px;
-            }
-
-            .subtitle {
-                font-size: 18px;
-            }
-
             .customer-details {
                 grid-template-columns: 1fr;
-                gap: 15px;
+            }
+
+            .container {
+                padding: 20px;
+                margin: 20px;
             }
 
             .customer-name {
-                font-size: 26px;
+                font-size: 24px;
             }
 
             .qr-code {
-                max-width: 280px;
-            }
-
-            .timer-value {
-                font-size: 28px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 20px;
-                border-radius: 24px;
-            }
-
-            .logo {
-                width: 180px;
-                height: 180px;
-                font-size: 36px;
-            }
-
-            .welcome-text {
-                font-size: 24px;
+                max-width: 250px;
             }
         }
     </style>
 </head>
 <body>
-<div class="floating-particles">
-    <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
-    <div class="particle" style="left: 20%; animation-delay: 2s;"></div>
-    <div class="particle" style="left: 30%; animation-delay: 4s;"></div>
-    <div class="particle" style="left: 40%; animation-delay: 1s;"></div>
-    <div class="particle" style="left: 50%; animation-delay: 3s;"></div>
-    <div class="particle" style="left: 60%; animation-delay: 5s;"></div>
-    <div class="particle" style="left: 70%; animation-delay: 2.5s;"></div>
-    <div class="particle" style="left: 80%; animation-delay: 4.5s;"></div>
-    <div class="particle" style="left: 90%; animation-delay: 1.5s;"></div>
-</div>
-
 <div class="container">
     <!-- Logo Screen -->
     <div class="logo-screen" id="logoScreen">
@@ -574,7 +345,7 @@
         setTimeout(() => {
             qrScreen.classList.remove('fade-in', 'fade-out');
             showLogo();
-        }, 600);
+        }, 500);
     }
 
     // Kiểm tra dữ liệu từ Apps Script
