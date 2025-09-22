@@ -271,6 +271,7 @@
     // Hiển thị QR
     function showQR(data) {
         console.log('Hiển thị QR cho:', data.hoTen);
+        console.log('Dữ liệu nhận được:', data);
 
         // Cập nhật thông tin
         customerName.textContent = data.hoTen;
@@ -283,13 +284,17 @@
         qrScreen.style.display = 'block';
         qrScreen.classList.add('fade-in');
 
-        // Bắt đầu đếm ngược
-        startTimer(data.timeLeft);
+        // Bắt đầu đếm ngược - sử dụng timeLeft từ server hoặc mặc định 180 giây
+        const timeLeft = data.timeLeft || 180;
+        startTimer(timeLeft);
     }
 
     // Đếm ngược thời gian
     function startTimer(seconds) {
-        let timeLeft = seconds;
+        // Đảm bảo seconds là số hợp lệ
+        let timeLeft = parseInt(seconds) || 180; // Mặc định 3 phút nếu không có dữ liệu
+
+        console.log('Bắt đầu timer với:', timeLeft, 'giây');
 
         function updateTimer() {
             const minutes = Math.floor(timeLeft / 60);
