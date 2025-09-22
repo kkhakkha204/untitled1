@@ -253,6 +253,7 @@
 
     let currentInterval;
     let timerInterval;
+    let currentDisplayData = null; // Lưu dữ liệu đang hiển thị
 
     // Khởi tạo
     function init() {
@@ -270,8 +271,19 @@
 
     // Hiển thị QR
     function showQR(data) {
-        console.log('Hiển thị QR cho:', data.hoTen);
+        // Kiểm tra nếu đây là cùng 1 khách hàng đang hiển thị
+        if (currentDisplayData &&
+            currentDisplayData.hoTen === data.hoTen &&
+            currentDisplayData.soDienThoai === data.soDienThoai) {
+            // Đã đang hiển thị khách hàng này rồi, không làm gì cả
+            return;
+        }
+
+        console.log('Hiển thị QR cho khách hàng mới:', data.hoTen);
         console.log('Dữ liệu nhận được:', data);
+
+        // Lưu dữ liệu đang hiển thị
+        currentDisplayData = data;
 
         // Cập nhật thông tin
         customerName.textContent = data.hoTen;
@@ -322,6 +334,9 @@
             clearInterval(timerInterval);
         }
 
+        // Xóa dữ liệu đang hiển thị
+        currentDisplayData = null;
+
         qrScreen.classList.add('fade-out');
 
         setTimeout(() => {
@@ -343,8 +358,9 @@
                     console.log('QR đã hết hạn');
                     hideQR();
                 } else {
-                    // Không có dữ liệu, hiển thị logo
-                    if (qrScreen.style.display === 'block') {
+                    // Không có dữ liệu, nếu đang hiển thị QR thì ẩn đi
+                    if (currentDisplayData !== null) {
+                        console.log('Không còn dữ liệu, ẩn QR');
                         hideQR();
                     }
                 }
