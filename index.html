@@ -2,8 +2,8 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>QR Customer Display</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Display - Lễ Tân</title>
     <style>
         * {
             margin: 0;
@@ -12,673 +12,381 @@
         }
 
         body {
-            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Arial', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             overflow: hidden;
-            -webkit-user-select: none;
-            user-select: none;
-            -webkit-touch-callout: none;
-            -webkit-tap-highlight-color: transparent;
         }
 
         .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 800px;
+            width: 90%;
+            min-height: 600px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center;
-            height: 100vh;
-            padding: 40px;
-            text-align: center;
         }
 
-        /* LOGO SCREEN */
+        /* Logo Screen */
         .logo-screen {
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: center;
-            animation: fadeIn 1s ease-in-out;
+            align-items: center;
         }
 
         .logo {
             width: 200px;
             height: 200px;
-            background: white;
+            background: #667eea;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-            animation: pulse 2s infinite;
-        }
-
-        .logo-text {
+            color: white;
             font-size: 48px;
             font-weight: bold;
-            color: #333;
+            margin-bottom: 30px;
         }
 
-        .brand-name {
-            font-size: 36px;
-            color: white;
-            font-weight: 300;
-            margin-bottom: 20px;
-        }
-
-        .waiting-message {
+        .welcome-text {
             font-size: 24px;
-            color: rgba(255,255,255,0.8);
-            animation: blink 2s infinite;
-        }
-
-        /* QR DISPLAY SCREEN */
-        .qr-screen {
-            display: none;
-            width: 100%;
-            max-width: 800px;
-            animation: slideIn 0.5s ease-out;
-        }
-
-        .qr-header {
-            background: rgba(255,255,255,0.95);
-            border-radius: 20px 20px 0 0;
-            padding: 30px;
-            backdrop-filter: blur(10px);
-        }
-
-        .qr-title {
-            font-size: 28px;
             color: #333;
             margin-bottom: 10px;
-            font-weight: 600;
         }
 
-        .qr-subtitle {
-            font-size: 18px;
+        .subtitle {
+            font-size: 16px;
             color: #666;
         }
 
-        .qr-body {
-            background: white;
-            padding: 40px;
-            display: flex;
-            gap: 40px;
-            align-items: center;
-        }
-
-        .qr-code-container {
-            flex-shrink: 0;
-        }
-
-        .qr-code {
-            width: 300px;
-            height: 300px;
-            border: 8px solid #f0f0f0;
-            border-radius: 20px;
-            background: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .qr-code img {
-            width: 280px;
-            height: 280px;
-            border-radius: 12px;
+        /* QR Screen */
+        .qr-screen {
+            display: none;
         }
 
         .customer-info {
-            flex: 1;
-            text-align: left;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
         }
 
         .customer-name {
-            font-size: 36px;
-            color: #333;
+            font-size: 28px;
             font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .customer-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
             margin-bottom: 20px;
         }
 
-        .info-row {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-            font-size: 20px;
+        .detail-item {
+            text-align: left;
         }
 
-        .info-label {
+        .detail-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .detail-value {
+            font-size: 18px;
             font-weight: 600;
-            color: #666;
-            width: 120px;
-            flex-shrink: 0;
-        }
-
-        .info-value {
             color: #333;
-            font-weight: 500;
         }
 
-        .queue-number {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+        .qr-container {
+            margin: 30px 0;
+        }
+
+        .qr-code {
+            max-width: 300px;
+            height: auto;
+            border: 3px solid #667eea;
+            border-radius: 15px;
+            padding: 10px;
+            background: white;
+        }
+
+        .timer-container {
+            background: #667eea;
             color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 18px;
-        }
-
-        .qr-footer {
-            background: rgba(255,255,255,0.95);
-            border-radius: 0 0 20px 20px;
-            padding: 20px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            backdrop-filter: blur(10px);
-        }
-
-        .timer {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 18px;
-            color: #666;
-        }
-
-        .timer-circle {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: #f0f0f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
         }
 
         .timer-text {
-            font-weight: bold;
-            color: #333;
-        }
-
-        .instructions {
             font-size: 16px;
-            color: #666;
-            font-style: italic;
+            margin-bottom: 5px;
         }
 
-        /* STATUS INDICATOR */
-        .status-indicator {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #4CAF50;
-            animation: pulse 2s infinite;
+        .timer-value {
+            font-size: 24px;
+            font-weight: bold;
         }
 
-        .status-indicator.inactive {
-            background: #FF5722;
+        .loading {
+            display: none;
+            font-size: 18px;
+            color: #667eea;
         }
 
-        /* ANIMATIONS */
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .fade-out {
+            animation: fadeOut 0.5s ease-out;
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes slideIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
+        @keyframes fadeOut {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(-20px); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1); }
+            0% { transform: scale(1); }
             50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        @keyframes countdown {
-            from { transform: scale(1) rotate(0deg); }
-            to { transform: scale(1.1) rotate(360deg); }
-        }
-
-        /* RESPONSIVE */
+        /* Responsive */
         @media (max-width: 768px) {
-            .qr-body {
-                flex-direction: column;
-                gap: 20px;
+            .customer-details {
+                grid-template-columns: 1fr;
             }
 
-            .customer-info {
-                text-align: center;
+            .container {
+                padding: 20px;
+                margin: 20px;
             }
 
             .customer-name {
-                font-size: 28px;
+                font-size: 24px;
             }
-        }
 
-        /* LOADING ANIMATION */
-        .loading {
-            display: inline-block;
-            width: 40px;
-            height: 40px;
-            border: 4px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 1s ease-in-out infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* ERROR STATE */
-        .error-message {
-            background: rgba(255,255,255,0.9);
-            border-radius: 15px;
-            padding: 20px;
-            margin-top: 20px;
-            color: #d32f2f;
-            font-size: 18px;
-            display: none;
+            .qr-code {
+                max-width: 250px;
+            }
         }
     </style>
 </head>
 <body>
-<div class="status-indicator" id="statusIndicator"></div>
-
 <div class="container">
-    <!-- LOGO SCREEN -->
+    <!-- Logo Screen -->
     <div class="logo-screen" id="logoScreen">
-        <div class="logo">
-            <div class="logo-text">LOGO</div>
-        </div>
-        <div class="brand-name">THƯƠNG HIỆU CỦA BẠN</div>
-        <div class="waiting-message">
-            <span id="waitingText">Đang chờ khách hàng...</span>
-            <div class="loading" id="loadingSpinner" style="display: none;"></div>
-        </div>
-        <div class="error-message" id="errorMessage"></div>
+        <div class="logo pulse">LOGO</div>
+        <div class="welcome-text">Chào mừng quý khách</div>
+        <div class="subtitle">Vui lòng chờ thông tin hiển thị</div>
     </div>
 
-    <!-- QR DISPLAY SCREEN -->
+    <!-- QR Screen -->
     <div class="qr-screen" id="qrScreen">
-        <div class="qr-header">
-            <div class="qr-title">Mã QR Khách Hàng</div>
-            <div class="qr-subtitle">Vui lòng quét mã QR để xem thông tin chi tiết</div>
-        </div>
-
-        <div class="qr-body">
-            <div class="qr-code-container">
-                <div class="qr-code">
-                    <img id="qrImage" src="" alt="QR Code">
+        <div class="customer-info">
+            <div class="customer-name" id="customerName"></div>
+            <div class="customer-details">
+                <div class="detail-item">
+                    <div class="detail-label">Số điện thoại</div>
+                    <div class="detail-value" id="customerPhone"></div>
                 </div>
-            </div>
-
-            <div class="customer-info">
-                <div class="customer-name" id="customerName">---</div>
-
-                <div class="info-row">
-                    <div class="info-label">Số điện thoại:</div>
-                    <div class="info-value" id="customerPhone">---</div>
-                </div>
-
-                <div class="info-row">
-                    <div class="info-label">Dịch vụ:</div>
-                    <div class="info-value" id="customerService">---</div>
-                </div>
-
-                <div class="info-row">
-                    <div class="info-label">Số thứ tự:</div>
-                    <div class="info-value">
-                        <span class="queue-number" id="queueNumber">---</span>
-                    </div>
+                <div class="detail-item">
+                    <div class="detail-label">Email</div>
+                    <div class="detail-value" id="customerEmail"></div>
                 </div>
             </div>
         </div>
 
-        <div class="qr-footer">
-            <div class="timer">
-                <div class="timer-circle">
-                    <div class="timer-text" id="timerText">180</div>
-                </div>
-                <span>giây còn lại</span>
-            </div>
-            <div class="instructions">
-                Sử dụng camera điện thoại để quét mã QR
-            </div>
+        <div class="qr-container">
+            <img class="qr-code" id="qrImage" src="" alt="QR Code">
+        </div>
+
+        <div class="timer-container">
+            <div class="timer-text">Thời gian còn lại:</div>
+            <div class="timer-value" id="timerValue">--:--</div>
         </div>
     </div>
+
+    <!-- Loading -->
+    <div class="loading" id="loadingText">Đang tải dữ liệu...</div>
 </div>
 
 <script>
-    // ============================================
-    // CONFIGURATION
-    // ============================================
+    // Cấu hình
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxuzWw0H5c49MFXVT19n6Qj-OgTTw4cf2BudfkaXSfgaq14c05JGw_rrd1WOvqpZXBCvg/exec';
+    const CHECK_INTERVAL = 5000; // 5 giây
 
-    // TODO: Thay đổi URL này thành Web App URL thực tế
-    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxkVh0ju26eo08f9ABYMmMqkkP4z7DzFS6dGtCTvH-95yiKSNRe8k-dI9yP8LURnFw_/exec';
+    // Elements
+    const logoScreen = document.getElementById('logoScreen');
+    const qrScreen = document.getElementById('qrScreen');
+    const loadingText = document.getElementById('loadingText');
+    const customerName = document.getElementById('customerName');
+    const customerPhone = document.getElementById('customerPhone');
+    const customerEmail = document.getElementById('customerEmail');
+    const qrImage = document.getElementById('qrImage');
+    const timerValue = document.getElementById('timerValue');
 
-    const CONFIG = {
-        refreshInterval: 5000,    // Check mỗi 5 giây
-        displayDuration: 180,     // 3 phút = 180 giây
-        retryAttempts: 3,
-        retryDelay: 2000
-    };
+    let currentInterval;
+    let timerInterval;
 
-    // ============================================
-    // STATE MANAGEMENT
-    // ============================================
+    // Khởi tạo
+    function init() {
+        console.log('Khởi tạo ứng dụng...');
+        showLogo();
+        startChecking();
+    }
 
-    let currentState = {
-        isDisplaying: false,
-        currentQRData: null,
-        remainingTime: 0,
-        refreshTimer: null,
-        countdownTimer: null,
-        retryCount: 0
-    };
+    // Hiển thị logo
+    function showLogo() {
+        logoScreen.style.display = 'flex';
+        qrScreen.style.display = 'none';
+        loadingText.style.display = 'none';
+    }
 
-    // ============================================
-    // DOM ELEMENTS
-    // ============================================
+    // Hiển thị QR
+    function showQR(data) {
+        console.log('Hiển thị QR cho:', data.hoTen);
 
-    const elements = {
-        logoScreen: document.getElementById('logoScreen'),
-        qrScreen: document.getElementById('qrScreen'),
-        statusIndicator: document.getElementById('statusIndicator'),
-        waitingText: document.getElementById('waitingText'),
-        loadingSpinner: document.getElementById('loadingSpinner'),
-        errorMessage: document.getElementById('errorMessage'),
+        // Cập nhật thông tin
+        customerName.textContent = data.hoTen;
+        customerPhone.textContent = data.soDienThoai;
+        customerEmail.textContent = data.email;
+        qrImage.src = data.qrUrl;
 
-        // QR Screen elements
-        qrImage: document.getElementById('qrImage'),
-        customerName: document.getElementById('customerName'),
-        customerPhone: document.getElementById('customerPhone'),
-        customerService: document.getElementById('customerService'),
-        queueNumber: document.getElementById('queueNumber'),
-        timerText: document.getElementById('timerText')
-    };
+        // Chuyển screen
+        logoScreen.style.display = 'none';
+        qrScreen.style.display = 'block';
+        qrScreen.classList.add('fade-in');
 
-    // ============================================
-    // API FUNCTIONS
-    // ============================================
+        // Bắt đầu đếm ngược
+        startTimer(data.timeLeft);
+    }
 
-    async function fetchCurrentQR() {
-        try {
-            const response = await fetch(`${WEB_APP_URL}?action=getCurrentQR&t=${Date.now()}`);
+    // Đếm ngược thời gian
+    function startTimer(seconds) {
+        let timeLeft = seconds;
 
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        function updateTimer() {
+            const minutes = Math.floor(timeLeft / 60);
+            const secs = timeLeft % 60;
+            timerValue.textContent = `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                hideQR();
+                return;
             }
 
-            const data = await response.json();
-            currentState.retryCount = 0; // Reset retry count on success
-            return data;
-
-        } catch (error) {
-            console.error('Error fetching QR data:', error);
-            currentState.retryCount++;
-
-            if (currentState.retryCount < CONFIG.retryAttempts) {
-                console.log(`Retrying... (${currentState.retryCount}/${CONFIG.retryAttempts})`);
-                await new Promise(resolve => setTimeout(resolve, CONFIG.retryDelay));
-                return await fetchCurrentQR();
-            }
-
-            throw error;
+            timeLeft--;
         }
+
+        updateTimer(); // Cập nhật ngay lập tức
+        timerInterval = setInterval(updateTimer, 1000);
     }
 
-    async function checkSystemStatus() {
+    // Ẩn QR và về logo
+    function hideQR() {
+        console.log('Ẩn QR, về logo');
+
+        if (timerInterval) {
+            clearInterval(timerInterval);
+        }
+
+        qrScreen.classList.add('fade-out');
+
+        setTimeout(() => {
+            qrScreen.classList.remove('fade-in', 'fade-out');
+            showLogo();
+        }, 500);
+    }
+
+    // Kiểm tra dữ liệu từ Apps Script
+    async function checkForData() {
         try {
-            const response = await fetch(`${WEB_APP_URL}?action=checkStatus&t=${Date.now()}`);
-            const data = await response.json();
+            const response = await fetch(`${APPS_SCRIPT_URL}?action=getData&t=${Date.now()}`);
+            const result = await response.json();
 
-            updateStatusIndicator(data.status === 'active');
-            return data;
-
-        } catch (error) {
-            console.error('Error checking status:', error);
-            updateStatusIndicator(false);
-            return { status: 'error' };
-        }
-    }
-
-    // ============================================
-    // UI UPDATE FUNCTIONS
-    // ============================================
-
-    function showLogoScreen() {
-        currentState.isDisplaying = false;
-        elements.logoScreen.style.display = 'flex';
-        elements.qrScreen.style.display = 'none';
-
-        // Reset waiting message
-        elements.waitingText.textContent = 'Đang chờ khách hàng...';
-        elements.loadingSpinner.style.display = 'none';
-        hideError();
-
-        console.log('Logo screen displayed');
-    }
-
-    function showQRScreen(qrData) {
-        currentState.isDisplaying = true;
-        currentState.currentQRData = qrData;
-
-        // Update UI elements
-        elements.customerName.textContent = qrData.customerName || '---';
-        elements.customerPhone.textContent = qrData.phone || '---';
-        elements.customerService.textContent = qrData.service || '---';
-        elements.queueNumber.textContent = qrData.queueNumber || '---';
-        elements.qrImage.src = qrData.qrImageUrl || '';
-
-        // Switch screens
-        elements.logoScreen.style.display = 'none';
-        elements.qrScreen.style.display = 'block';
-
-        // Start countdown
-        startCountdown(qrData.remainingTime || CONFIG.displayDuration);
-
-        console.log('QR screen displayed for:', qrData.customerName);
-    }
-
-    function startCountdown(seconds) {
-        currentState.remainingTime = seconds;
-
-        // Clear existing timer
-        if (currentState.countdownTimer) {
-            clearInterval(currentState.countdownTimer);
-        }
-
-        // Update initial display
-        updateTimerDisplay(seconds);
-
-        // Start countdown
-        currentState.countdownTimer = setInterval(() => {
-            currentState.remainingTime--;
-            updateTimerDisplay(currentState.remainingTime);
-
-            if (currentState.remainingTime <= 0) {
-                clearInterval(currentState.countdownTimer);
-                showLogoScreen();
-            }
-        }, 1000);
-    }
-
-    function updateTimerDisplay(seconds) {
-        elements.timerText.textContent = Math.max(0, seconds);
-
-        // Add urgency styling when < 30 seconds
-        const timerCircle = elements.timerText.parentElement;
-        if (seconds <= 30) {
-            timerCircle.style.background = '#ffeb3b';
-            timerCircle.style.animation = 'countdown 1s infinite';
-        } else if (seconds <= 60) {
-            timerCircle.style.background = '#ff9800';
-            timerCircle.style.animation = 'pulse 2s infinite';
-        } else {
-            timerCircle.style.background = '#f0f0f0';
-            timerCircle.style.animation = 'none';
-        }
-    }
-
-    function updateStatusIndicator(isActive) {
-        elements.statusIndicator.className = isActive ? '' : 'inactive';
-    }
-
-    function showLoading() {
-        elements.waitingText.textContent = 'Đang tải dữ liệu...';
-        elements.loadingSpinner.style.display = 'inline-block';
-    }
-
-    function showError(message) {
-        elements.errorMessage.textContent = message;
-        elements.errorMessage.style.display = 'block';
-        elements.waitingText.textContent = 'Có lỗi xảy ra';
-        elements.loadingSpinner.style.display = 'none';
-    }
-
-    function hideError() {
-        elements.errorMessage.style.display = 'none';
-    }
-
-    // ============================================
-    // MAIN REFRESH LOGIC
-    // ============================================
-
-    async function refreshData() {
-        try {
-            showLoading();
-
-            const qrResponse = await fetchCurrentQR();
-
-            if (qrResponse.status === 'success' && qrResponse.data) {
-                // Có dữ liệu QR mới
-                if (!currentState.isDisplaying ||
-                    !currentState.currentQRData ||
-                    currentState.currentQRData.id !== qrResponse.data.id) {
-
-                    showQRScreen(qrResponse.data);
+            if (result.success) {
+                if (result.hasData && result.data) {
+                    showQR(result.data);
+                } else if (result.expired) {
+                    console.log('QR đã hết hạn');
+                    hideQR();
+                } else {
+                    // Không có dữ liệu, hiển thị logo
+                    if (qrScreen.style.display === 'block') {
+                        hideQR();
+                    }
                 }
             } else {
-                // Không có dữ liệu hoặc hết thời gian
-                if (currentState.isDisplaying) {
-                    showLogoScreen();
-                }
+                console.error('Lỗi từ server:', result.message || result.error);
             }
-
-            hideError();
-
         } catch (error) {
-            console.error('Refresh error:', error);
-            showError('Không thể kết nối với server. Đang thử lại...');
-
-            if (currentState.isDisplaying) {
-                // Nếu đang hiển thị QR, giữ nguyên và thử lại
-            } else {
-                showLogoScreen();
-            }
+            console.error('Lỗi kết nối:', error);
         }
     }
 
-    // ============================================
-    // INITIALIZATION
-    // ============================================
-
-    function startApp() {
-        console.log('QR Display App Starting...');
-
-        // Kiểm tra cấu hình
-        if (WEB_APP_URL.includes('YOUR_SCRIPT_ID')) {
-            showError('Chưa cấu hình Web App URL. Vui lòng cập nhật WEB_APP_URL trong code.');
-            return;
-        }
-
-        // Initial state
-        showLogoScreen();
-
-        // Start refresh cycle
-        currentState.refreshTimer = setInterval(refreshData, CONFIG.refreshInterval);
-
-        // Initial data fetch
-        refreshData();
-
-        // Check system status periodically
-        setInterval(checkSystemStatus, 30000); // Mỗi 30 giây
-
-        console.log('App initialized successfully');
+    // Bắt đầu kiểm tra định kỳ
+    function startChecking() {
+        checkForData(); // Kiểm tra ngay lập tức
+        currentInterval = setInterval(checkForData, CHECK_INTERVAL);
     }
 
-    // ============================================
-    // KIOSK MODE UTILITIES
-    // ============================================
-
-    // Prevent right-click context menu
-    document.addEventListener('contextmenu', (e) => e.preventDefault());
-
-    // Prevent text selection
-    document.addEventListener('selectstart', (e) => e.preventDefault());
-
-    // Prevent zoom
-    document.addEventListener('gesturestart', (e) => e.preventDefault());
-    document.addEventListener('gesturechange', (e) => e.preventDefault());
-    document.addEventListener('gestureend', (e) => e.preventDefault());
-
-    // Handle focus/blur for kiosk mode
-    let isPageVisible = true;
-
-    document.addEventListener('visibilitychange', () => {
-        isPageVisible = !document.hidden;
-        if (isPageVisible) {
-            console.log('Page visible - resuming refresh');
-            refreshData();
-        } else {
-            console.log('Page hidden - continuing background refresh');
+    // Dừng kiểm tra
+    function stopChecking() {
+        if (currentInterval) {
+            clearInterval(currentInterval);
         }
-    });
-
-    // ============================================
-    // START APPLICATION
-    // ============================================
-
-    // Wait for DOM to be ready
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', startApp);
-    } else {
-        startApp();
+        if (timerInterval) {
+            clearInterval(timerInterval);
+        }
     }
 
-    // Debug function for manual testing
-    window.debugApp = {
-        refreshData,
-        showLogoScreen,
-        checkSystemStatus,
-        currentState: () => currentState,
-        testQR: () => {
-            const testData = {
-                id: 'test-123',
-                customerName: 'Nguyễn Văn Test',
-                phone: '0901234567',
-                service: 'Test Service',
-                queueNumber: 'STT-001',
-                qrImageUrl: 'https://chart.googleapis.com/chart?cht=qr&chs=280x280&chl=Test%20QR&choe=UTF-8',
-                remainingTime: 180
-            };
-            showQRScreen(testData);
+    // Khởi động khi trang load
+    window.addEventListener('load', init);
+
+    // Dừng khi rời trang
+    window.addEventListener('beforeunload', stopChecking);
+
+    // Ngăn sleep mode trên iPad
+    function keepScreenAwake() {
+        if ('wakeLock' in navigator) {
+            navigator.wakeLock.request('screen').catch(err => {
+                console.log('Wake lock failed:', err);
+            });
         }
-    };
+    }
+
+    // Request wake lock khi user tương tác
+    document.addEventListener('click', keepScreenAwake);
+    document.addEventListener('touchstart', keepScreenAwake);
+
+    console.log('QR Display App đã sẵn sàng!');
 </script>
 </body>
 </html>
