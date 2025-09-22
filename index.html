@@ -1,416 +1,68 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-fullscreen">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>QR Display - Lễ Tân</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Thanh toán</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            background: #025944;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        .container {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            max-width: 800px;
-            width: 90%;
-            min-height: 600px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        /* Logo Screen */
-        .logo-screen {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .logo {
-            width: 200px;
-            height: 200px;
-            background: #025944;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 48px;
-            font-weight: bold;
-            margin-bottom: 30px;
-        }
-
-        .welcome-text {
-            font-size: 24px;
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        .subtitle {
-            font-size: 16px;
-            color: #666;
-        }
-
-        /* QR Screen */
-        .qr-screen {
-            display: none;
-        }
-
-        .customer-info {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 30px;
-        }
-
-        .customer-name {
-            font-size: 28px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 15px;
-        }
-
-        .customer-details {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .detail-item {
-            text-align: left;
-        }
-
-        .detail-label {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 5px;
-        }
-
-        .detail-value {
-            font-size: 18px;
-            font-weight: 600;
-            color: #333;
-        }
-
-        .qr-container {
-            margin: 30px 0;
-        }
-
-        .qr-code {
-            max-width: 300px;
-            height: auto;
-            border: 3px solid #667eea;
-            border-radius: 15px;
-            padding: 10px;
-            background: white;
-        }
-
-        .timer-container {
-            background: #667eea;
-            color: white;
-            border-radius: 10px;
-            padding: 15px;
-            margin-top: 20px;
-        }
-
-        .timer-text {
-            font-size: 16px;
-            margin-bottom: 5px;
-        }
-
-        .timer-value {
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        .loading {
-            display: none;
-            font-size: 18px;
-            color: #667eea;
-        }
-
-        /* Animations */
-        .fade-in {
-            animation: fadeIn 0.5s ease-in;
-        }
-
-        .fade-out {
-            animation: fadeOut 0.5s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeOut {
-            from { opacity: 1; transform: translateY(0); }
-            to { opacity: 0; transform: translateY(-20px); }
-        }
-
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .customer-details {
-                grid-template-columns: 1fr;
-            }
-
-            .container {
-                padding: 20px;
-                margin: 20px;
-            }
-
-            .customer-name {
-                font-size: 24px;
-            }
-
-            .qr-code {
-                max-width: 250px;
-            }
-        }
+        body{font-family: system-ui,-apple-system,Segoe UI,Roboto,sans-serif; margin:0; background:#0f172a; color:#e2e8f0; display:flex; min-height:100vh; align-items:center; justify-content:center;}
+        .card{background:#111827; border:1px solid #1f2937; border-radius:20px; padding:24px; width:min(680px,92vw); box-shadow:0 10px 30px rgba(0,0,0,.35)}
+        .row{display:flex; gap:20px; flex-wrap:wrap;}
+        .left{flex:1 1 280px; text-align:center}
+        .right{flex:1 1 280px;}
+        img{width:320px; height:320px; object-fit:contain; background:#fff; border-radius:12px; padding:8px;}
+        h1{font-size:24px; margin:0 0 12px}
+        .kv{margin:10px 0; font-size:16px}
+        .kv b{display:inline-block; min-width:140px; color:#93c5fd}
+        .money{font-size:28px; font-weight:700; color:#86efac}
+        .footer{margin-top:14px; font-size:12px; color:#94a3b8}
+        .empty{text-align:center; opacity:.9}
     </style>
 </head>
 <body>
-<div class="container">
-    <!-- Logo Screen -->
-    <div class="logo-screen" id="logoScreen">
-        <div class="logo pulse">LOGO</div>
-        <div class="welcome-text">Chào mừng quý khách</div>
-        <div class="subtitle">Vui lòng chờ thông tin hiển thị</div>
-    </div>
-
-    <!-- QR Screen -->
-    <div class="qr-screen" id="qrScreen">
-        <div class="customer-info">
-            <div class="customer-name" id="customerName"></div>
-            <div class="customer-details">
-                <div class="detail-item">
-                    <div class="detail-label">Số điện thoại</div>
-                    <div class="detail-value" id="customerPhone"></div>
-                </div>
-                <div class="detail-item">
-                    <div class="detail-label">Email</div>
-                    <div class="detail-value" id="customerEmail"></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="qr-container">
-            <img class="qr-code" id="qrImage" src="" alt="QR Code">
-        </div>
-
-        <div class="timer-container">
-            <div class="timer-text">Thời gian còn lại:</div>
-            <div class="timer-value" id="timerValue">--:--</div>
-        </div>
-    </div>
-
-    <!-- Loading -->
-    <div class="loading" id="loadingText">Đang tải dữ liệu...</div>
+<div class="card" id="root">
+    <div class="empty">Đang tải…</div>
 </div>
 
 <script>
-    // Cấu hình
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxuzWw0H5c49MFXVT19n6Qj-OgTTw4cf2BudfkaXSfgaq14c05JGw_rrd1WOvqpZXBCvg/exec';
-    const CHECK_INTERVAL = 5000; // 5 giây
+    const API_URL = 'https://<n8n-domain>/webhook/display-json'; // đổi đúng path
 
-    // Elements
-    const logoScreen = document.getElementById('logoScreen');
-    const qrScreen = document.getElementById('qrScreen');
-    const loadingText = document.getElementById('loadingText');
-    const customerName = document.getElementById('customerName');
-    const customerPhone = document.getElementById('customerPhone');
-    const customerEmail = document.getElementById('customerEmail');
-    const qrImage = document.getElementById('qrImage');
-    const timerValue = document.getElementById('timerValue');
+    function formatVND(v){ try{ return Number(v||0).toLocaleString('vi-VN') + ' ₫'; } catch(e){ return v||''; } }
 
-    let currentInterval;
-    let timerInterval;
-    let currentDisplayData = null; // Lưu dữ liệu đang hiển thị
+    async function load(){
+        try{
+            const res = await fetch(API_URL, { cache: 'no-store' });
+            const { data } = await res.json();
+            const root = document.getElementById('root');
 
-    // Khởi tạo
-    function init() {
-        console.log('Khởi tạo ứng dụng...');
-        showLogo();
-        startChecking();
-    }
-
-    // Hiển thị logo
-    function showLogo() {
-        logoScreen.style.display = 'flex';
-        qrScreen.style.display = 'none';
-        loadingText.style.display = 'none';
-    }
-
-    // Hiển thị QR
-    function showQR(data) {
-        // Kiểm tra nếu đây là cùng 1 khách hàng đang hiển thị
-        if (currentDisplayData &&
-            currentDisplayData.hoTen === data.hoTen &&
-            currentDisplayData.soDienThoai === data.soDienThoai) {
-            // Đã đang hiển thị khách hàng này rồi, không làm gì cả
-            return;
-        }
-
-        console.log('Hiển thị QR cho khách hàng mới:', data.hoTen);
-        console.log('Dữ liệu nhận được:', data);
-
-        // Lưu dữ liệu đang hiển thị
-        currentDisplayData = data;
-
-        // Cập nhật thông tin
-        customerName.textContent = data.hoTen;
-        customerPhone.textContent = data.soDienThoai;
-        customerEmail.textContent = data.email;
-        qrImage.src = data.qrUrl;
-
-        // Chuyển screen
-        logoScreen.style.display = 'none';
-        qrScreen.style.display = 'block';
-        qrScreen.classList.add('fade-in');
-
-        // Bắt đầu đếm ngược - sử dụng timeLeft từ server hoặc mặc định 180 giây
-        const timeLeft = data.timeLeft || 180;
-        startTimer(timeLeft);
-    }
-
-    // Đếm ngược thời gian
-    function startTimer(seconds) {
-        // Đảm bảo seconds là số hợp lệ
-        let timeLeft = parseInt(seconds) || 180; // Mặc định 3 phút nếu không có dữ liệu
-
-        console.log('Bắt đầu timer với:', timeLeft, 'giây');
-
-        function updateTimer() {
-            const minutes = Math.floor(timeLeft / 60);
-            const secs = timeLeft % 60;
-            timerValue.textContent = `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-
-            if (timeLeft <= 0) {
-                clearInterval(timerInterval);
-                hideQR();
+            if(!data || Object.keys(data).length===0){
+                root.innerHTML = `<div class="empty">Đang chờ đơn hàng NEW…</div>`;
                 return;
             }
 
-            timeLeft--;
-        }
-
-        updateTimer(); // Cập nhật ngay lập tức
-        timerInterval = setInterval(updateTimer, 1000);
-    }
-
-    // Ẩn QR và về logo
-    function hideQR() {
-        console.log('Ẩn QR, về logo');
-
-        if (timerInterval) {
-            clearInterval(timerInterval);
-        }
-
-        // Xóa dữ liệu đang hiển thị
-        currentDisplayData = null;
-
-        qrScreen.classList.add('fade-out');
-
-        setTimeout(() => {
-            qrScreen.classList.remove('fade-in', 'fade-out');
-            showLogo();
-        }, 500);
-    }
-
-    // Kiểm tra dữ liệu từ Apps Script
-    async function checkForData() {
-        try {
-            const response = await fetch(`${APPS_SCRIPT_URL}?action=getData&t=${Date.now()}`);
-            const result = await response.json();
-
-            if (result.success) {
-                if (result.hasData && result.data) {
-                    showQR(result.data);
-                } else if (result.expired) {
-                    console.log('QR đã hết hạn');
-                    hideQR();
-                } else {
-                    // Không có dữ liệu, nếu đang hiển thị QR thì ẩn đi
-                    if (currentDisplayData !== null) {
-                        console.log('Không còn dữ liệu, ẩn QR');
-                        hideQR();
-                    }
-                }
-            } else {
-                console.error('Lỗi từ server:', result.message || result.error);
-            }
-        } catch (error) {
-            console.error('Lỗi kết nối:', error);
+            root.innerHTML = `
+      <div class="row">
+        <div class="left">
+          <img src="${data.url_qr}" alt="QR thanh toán" />
+          <div class="footer">Quét mã để thanh toán • Mã đơn: ${data.order_ID || data.id}</div>
+        </div>
+        <div class="right">
+          <h1>Thông tin thanh toán</h1>
+          <div class="kv"><b>Khách hàng:</b> ${data.name||''}</div>
+          <div class="kv"><b>Điện thoại:</b> ${data.phone||''}</div>
+          <div class="kv"><b>Dịch vụ/SP:</b> ${data.product_service||''}</div>
+          <div class="kv money"><b>Số tiền:</b> ${formatVND(data.money)}</div>
+        </div>
+      </div>
+    `;
+        } catch(e){
+            document.getElementById('root').innerHTML = `<div class="empty">Lỗi tải dữ liệu</div>`;
+            console.error(e);
         }
     }
 
-    // Bắt đầu kiểm tra định kỳ
-    function startChecking() {
-        checkForData(); // Kiểm tra ngay lập tức
-        currentInterval = setInterval(checkForData, CHECK_INTERVAL);
-    }
-
-    // Dừng kiểm tra
-    function stopChecking() {
-        if (currentInterval) {
-            clearInterval(currentInterval);
-        }
-        if (timerInterval) {
-            clearInterval(timerInterval);
-        }
-    }
-
-    // Khởi động khi trang load
-    window.addEventListener('load', init);
-
-    // Dừng khi rời trang
-    window.addEventListener('beforeunload', stopChecking);
-
-    // Ngăn sleep mode trên iPad
-    function keepScreenAwake() {
-        if ('wakeLock' in navigator) {
-            navigator.wakeLock.request('screen').catch(err => {
-                console.log('Wake lock failed:', err);
-            });
-        }
-    }
-
-    // Request wake lock khi user tương tác
-    document.addEventListener('click', keepScreenAwake);
-    document.addEventListener('touchstart', keepScreenAwake);
-
-    console.log('QR Display App đã sẵn sàng!');
+    load();
+    setInterval(load, 8000); // refresh mỗi 8s
 </script>
 </body>
 </html>
